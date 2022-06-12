@@ -1,0 +1,72 @@
+Science Space Deep Space Exoplanets
+Astronomers think they’ve found a moon the size of Neptune in a distant star system
+It could be the largest moon we’ve ever seen
+
+BY CHARLES Q. CHOI | PUBLISHED OCT 3, 2018 10:00 PM EDT
+
+SCIENCE
+
+SHARE    
+Nearly eight thousand light-years away from Earth, there’s a star about the same size as our sun. Like our own solar system, that distant star is orbited by a planet about the same size as Jupiter. But that’s where the similarities end. Around that planet circles a Neptune-sized gas giant, which may be the first moon discovered outside the solar system, and the largest moon ever observed.
+
+Over the past 20 or so years, scientists have confirmed the existence of nearly 3,800 exoplanets, or planets around other stars. However, although nearly 200 moons are known to orbit planets in our solar system—Jupiter alone has at least 79—up to now researchers had not yet detected any moons around exoplanets. Their discovery was published today in Science Advances.
+
+To look for such “exomoons,” astronomers from Columbia University examined data from NASA’s Kepler space telescope on 284 transiting planets—worlds that passed between their stars and the observatory, resulting in a brief dimming of the light of those stars. They focused on worlds that took more than 30 days to complete orbits around their stars—prior work suggested that worlds that orbited in less time were likely too close to their stars for any moons to survive.
+
+The scientists detected anomalies hinting at a moon around the exoplanet Kepler-1625b. This gas giant is about the same diameter as Jupiter, and orbits the solar-mass star Kepler-1625 about 7,825 light-years from Earth in the constellation Cygnus the swan.
+
+The researchers then requested and received about 40 hours of time on NASA’s Hubble Space Telescope to analyze Kepler-1625b during its 19-hour-long transit across the face of its star. Using Hubble, which is about four times more precise than Kepler, they detected two sets of telltale signs that suggested the presence of an exomoon. “We indeed conclude that a moon is an excellent explanation for the data in hand,” said study senior author David Kipping, an astrophysicist at Columbia University. (Read more about Kipping’s hunt for exomoons here.)
+
+First, after the exoplanet passed in front of its star, the researchers detected a second and much smaller decrease in the star’s brightness 3.5 hours later. This supports a scenario where a moon trailed the planet like a dog following its owner.
+
+Second, the astronomers found the planet began its transit nearly 80 minutes earlier than predicted. This is consistent with a picture where a moon’s gravitational tug would cause its planet to wobble from its predicted location. Although the gravitational pull of another planet could in principle also cause this anomaly, Kepler found no evidence for additional planets around this star during its four-year mission.
+
+“It sounds like they struck gold,” said astrophysicist Sean Raymond at the University of Bordeaux in France, who did not take part in this work. “Moons are out there and findable. It’s an exciting next step in exoplanet exploration.”
+
+The researchers estimated the exomoon, dubbed Kepler-1625b-i, is only 1.5 percent the mass of its companion planet, a ratio nearly that of Earth and its moon. However, that still means the exomoon may be gargantuan—Kepler-1625b is likely several times Jupiter’s mass, so its moon is likely about the mass and diameter of Neptune.
+
+The size of the moon is surprising—”all the large moons in the solar system are at most about 1/10,000th as massive as their host planets,” Raymond said. The pair are so large that it “could also be regarded as a binary planet system,” said Avi Loeb, chair of Harvard University’s astronomy department, who did not participate in this study.
+
+“The biggest things will be the easiest to find,” Kipping said. “This may not represent a particularly common type of moon system—it’s just it’s for the easiest for us to find.”
+
+Large yellow star with two smaller black dots passing in front of it.
+An artist’s concept of the star system where researchers think they’ve observed the first exomoon. Dan Durda
+The researchers estimated the exomoon orbits about 33 million kilometers from its world. This means it may lie close enough for its planet’s gravitational pull to rip it apart. But there’s nothing like this in our solar system for the researchers to observe directly. To study the dynamics of the planet-moon pair, the researchers created computer models to see how the two might interact. “In about three-quarters of the simulations that we did, we find the moon is perfectly stable,” Kipping said. “We don’t have any reason to believe that orbit is unstable.”
+
+Kepler-1625b orbits its star about the same distance that Earth does the sun. That puts the exoplanet and its moon within their star’s habitable zone—the area around the star warm enough for standing bodies of liquid water to survive. There is life virtually wherever there is water on Earth, so the hunt for alien life often focuses on habitable zones.
+
+Both Kepler-1625b and its potential newfound moon are gas giants, and so cannot support the bodies of water needed for life as we know it to survive. However, “if there are additional rocky moons orbiting the large planet, they might be habitable,” Loeb said. “This is the most exciting prospect for future follow-ups on this discovery.”
+
+The size of this potential exomoon raises questions about how it formed. Some moons, like Earth’s, are thought to have coalesced from the debris of a giant impact against their companion planet. Others, like Neptune’s moon Triton, likely started off as independent bodies only to later get ensnared by their planet’s gravitational pull. However, neither of these scenarios seems to fit this exomoon, said study lead author Alex Teachey, an astrophysicist at Columbia University—it is difficult to see how an impact against a gas giant would split off a moon, or how a moon of such size could get captured.
+
+Another possibility is that this exomoon may have formed from the same material as its parent planet, as is suspected with Jupiter and its moons. New models of moon formation have suggested “a small fraction of moons can end up being as massive as about 1 percent of their host planet mass, which is about the case for Kepler-1625b,” Raymond said.
+
+In the future, hunts for exomoons will likely look at exoplanets farther away from their stars than Earth is from the sun, Kipping said. These searches with Hubble or NASA’s upcoming James Webb Space Telescope may even turn up exomoons smaller than Jupiter’s largest ones, he added.
+
+The scientists noted they are still urging caution about their find. “The first exomoon is obviously an extraordinary claim, and it requires extraordinary evidence,” Teachey said. “Furthermore, the size we’ve calculated for this moon, about the size of Neptune, has hardly been anticipated, and so that too is reason to be careful here.”
+
+The researchers hope to use Hubble again to monitor Kepler-1625b and confirm the exomoon’s existence.
+
+DEEP SPACE
+EXOPLANETS
+SPACE
+Like science, tech, and DIY projects?
+
+Sign up to receive Popular Science's emails and get the highlights.
+
+Popular Science
+LINKS
+
+Home About Popular Science Newsletter Sign-up How We Test & Review Products Editorial Standards Contact Privacy Policy Terms & Conditions Sitemap DepositPhotos Affiliate Disclosure
+Cookies Settings
+FOLLOW US
+
+    
+DISCLAIMER(S)
+
+Articles may contain affiliate links which enable us to share in the revenue of any purchases made.
+
+Registration on or use of this site constitutes acceptance of our Terms of Service.
+
+© 2023 Recurrent. All rights reserved.
+

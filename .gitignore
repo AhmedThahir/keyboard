@@ -1,0 +1,7 @@
+
+Scripts/.DS_Store
+Scripts/MacOS/.DS_Store
+Scripts/Windows/.DS_Store
+.DS_Store
+*.DS_Store
+*/*.DS_Store
