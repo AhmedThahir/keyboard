@@ -2,3 +2,4 @@ streamlit
 streamlit-extras
 plotly
 pandas
+nltk
