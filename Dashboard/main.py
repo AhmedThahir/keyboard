@@ -36,10 +36,10 @@ def common_styles():
 	st.markdown(common_styles, unsafe_allow_html=True)
 
 
-config = dict(
+PLOTLY_CONFIG = dict(
 	# (ms) affects the single click delay; default = 300ms
 	doubleClickDelay=400,
-	displayModeBar=False,
+	# displayModeBar=False,
 	displaylogo=False,
 	showTips=False
 )
@@ -49,7 +49,7 @@ def bar(df):
 	df = df.copy()
 	df = df.reindex(df.sum().sort_values(ascending=False).index, axis=1)
 
-	title = "Comparison of Weighted Average of Layouts Difficulty"
+	title = "Comparison of Total Difficulty in each Layout (Corrected for input size)"
 
 	fig = go.Figure().update_layout(
 		margin=dict(t=0, r=0, b=0, l=0),
@@ -114,7 +114,7 @@ def bar(df):
 			legendgroup=layout_type,
 			legendgrouptitle_text=layout_type,
 			text=f"{value:.1f}",
-			textfont=dict(size=25),
+			textfont=dict(size=25, color="white"),
 			textangle=0,
 			insidetextanchor="start",
 			marker_color=color
@@ -122,7 +122,7 @@ def bar(df):
 
 	st.plotly_chart(
 		fig,
-		config=config,
+		config=PLOTLY_CONFIG,
 		use_container_width=True
 	)
 
@@ -131,7 +131,7 @@ def boxplot(df):
 	df = df.copy()
 	df = df.reindex(df.sum().sort_values(ascending=False).index, axis=1)
 
-	title = "Comparison of Layouts Difficulty"
+	title = "Comparison of Unigram Difficulty in each Layout"
 
 	fig = go.Figure().update_layout(
 		margin=dict(t=0, r=0, b=0, l=0),
@@ -195,7 +195,7 @@ def boxplot(df):
 
 	st.plotly_chart(
 		fig,
-		config=config,
+		config=PLOTLY_CONFIG,
 		use_container_width=True
 	)
 
@@ -538,9 +538,9 @@ def analyze_total_ngram_difficulty(df, char_count):
 
 def aggregate(df):
 	df = df.copy()
-	df = df.agg(["median", "std"]).round(2).T.sort_values("median")
-	df["Aggregate Difficulty (Median ± Std)"] = df["median"].astype(str) + " ± " + df["std"].astype(str)
-	df = df.drop(columns=["median", "std"])
+	df = df.agg(["mean", "std"]).round(2).T.sort_values("mean")
+	df["Aggregate Difficulty (Mean ± Std)"] = df["mean"].astype(str) + " ± " + df["std"].astype(str)
+	df = df.drop(columns=["mean", "std"])
 	return df
 
 
@@ -614,7 +614,7 @@ def main():
 	common_styles()
 
 	views = ["Home", "Difficulty Scores", "Layout Mappings",
-			 "Layouts Overall Difficulties", "Text File Difficulties"]
+			 "Layouts Unigram Summary Difficulty", "Text File Difficulties"]
 
 	view = st.sidebar.radio(
 		"View",
@@ -706,7 +706,7 @@ def main():
 				dtick=1
 			))
 
-			st.plotly_chart(heatmap_figure, config=config,
+			st.plotly_chart(heatmap_figure, config=PLOTLY_CONFIG,
 							use_container_width=True)
 			st.dataframe(
 				data_unigram,
@@ -722,10 +722,31 @@ def main():
 			st.markdown(f"# {views[2]}")
 			st.dataframe(
 				mappings_unigram,
-				use_container_width=True
+				use_container_width=True,
+				height = 800
 			)
 		elif view == views[3]:
 			st.markdown(f"# {views[3]}")
+
+			st.markdown(r"""
+			$$
+			\Large
+			\begin{aligned}
+			\text{UD}_\text{Layout}
+			&= \frac{
+				\text{Total Unigram Penalty}
+			}{
+				\text{Number of Unigrams}
+			} \\
+			&= \frac{
+				\sum \limits_{\text{Key } i} \Big( \text{Frequency}_i \times \text{Penalty}_{\text{Layout Key } i} \Big)
+			}{
+				\text{Number of Unigrams}
+			}   
+			\end{aligned}
+			$$
+			""")
+
 			boxplot(layout_difficulties[layouts])
 			st.dataframe(
 				layout_summary,
@@ -734,7 +755,7 @@ def main():
 		elif view == views[4]:
 			st.markdown(f"# {views[4]}")
 
-			input_stats_placeholder = st.expander("Input Text Statistics")
+			t1, t2, t3 = st.tabs(["Scores", "Relative Usage", "Input Text Statistics"])
 
 			input_folder = "./input_files"
 			genres = os.listdir(input_folder)
@@ -779,7 +800,7 @@ def main():
 					'Accuracy %',
 					1, 100,
 					92,
-					step=2,
+					step=1,
 					format="%d%%"
 				)
 				accuracy /= 100
@@ -841,21 +862,31 @@ def main():
 			text_file_ngram_summary = text_file_ngram_difficulties[layouts].round(
 				2).T.rename(columns={"sum": "Weighted_Average"}).sort_values("Weighted_Average")
 
-			bar(text_file_ngram_difficulties)
+			with t1:
+				st.markdown(r"""
+				$$
+				\Large
+				\begin{aligned}
+				S_\text{Layout} &= \frac{
+					\text{Total Penalty}_\text{Layout}
+				}{
+					\text{Input Character Count}
+				} \\
+				&= \frac{
+					\sum \limits_{i=\text{Key}} \Big(
+						\text{Frequency}_i \times \text{Penalty}_{\text{Layout Key } i}
+					\Big)
+				}{
+					\text{Input Character Count}
+				}
+				\end{aligned}
+				$$
+				""")
 
-			with st.expander("Frequency Tabular View"):
+				bar(text_file_ngram_difficulties)
+
 				st.dataframe(
 					text_file_ngram_summary,
-					use_container_width=True
-				)
-
-			with input_stats_placeholder:
-				st.header("Input Character Count")
-				st.markdown(f"{input_char_count:,}")
-
-				st.header(f"Unigram & Bigram Frequency")
-				st.dataframe(
-					frequency_ngrams.sort_values("Frequency", ascending=False),
 					use_container_width=True
 				)
 
@@ -912,14 +943,192 @@ def main():
 				dtick=1
 			))
 
-			st.plotly_chart(heatmap_figure, config=config,
-							use_container_width=True)
+			with t2:
+				st.markdown(r"""
+				$$
+				\Large
+				\begin{aligned}
+				\text{RU}_{\text{Layout Key } i} 
+				&= \frac{
+					\text{Frequency}_i
+				}{
+					\text{Total Frequency of all keys}
+				} \\
+				&= \frac{
+					\text{Frequency}_i
+				}{
+					\sum \limits_{j=\text{Key}} \text{Frequency}_j
+				}
+				\end{aligned}
+				$$
+				""")
 
-			heatmap = heatmap.groupby("Row").sum().drop(columns="Col")
-			heatmap = np.round(heatmap/heatmap.sum()*100, 1)
-			heatmap = heatmap.sort_index(ascending=False)
+				st.plotly_chart(heatmap_figure, config=PLOTLY_CONFIG,
+								use_container_width=True)
 
-			st.dataframe(heatmap)
+				heatmap = heatmap.groupby("Row").sum().drop(columns="Col")
+				heatmap = np.round(heatmap/heatmap.sum()*100, 1)
+				heatmap = heatmap.sort_index(ascending=False)
 
+				st.dataframe(heatmap)
+
+			with t3:
+				st.header("Input Character Count")
+				st.markdown(f"{input_char_count:,}")
+
+				with st.sidebar:
+					percentage_frequency = st.toggle("Percentage", True)
+					if percentage_frequency:
+						frequency_unigram *= 100/frequency_unigram["Frequency"].sum()
+						frequency_bigram *= 100/frequency_bigram["Frequency"].sum()
+				
+				st.header(f"Unigram Frequency{' %' if percentage_frequency else ''}")
+				
+				bar_unigram_frequency(frequency_unigram, 10)
+				st.dataframe(
+					frequency_unigram.sort_values("Frequency", ascending=False),
+					use_container_width=True
+				)
+
+				st.header(f"Bigram Frequency{' %' if percentage_frequency else ''}")
+				bar_bigram_frequency(frequency_bigram, 10)
+				st.dataframe(
+					frequency_bigram.sort_values("Frequency", ascending=False),
+					use_container_width=True
+				)
+
+def bar_unigram_frequency(df, top_count=10):
+	df = df.sort_values("Frequency", ascending=False).head(top_count).reset_index().sort_values("Frequency", ascending=True)
+
+	title = f"Unigram Frequency (Top {top_count})"
+
+	fig = go.Figure().update_layout(
+		margin=dict(t=0, r=0, b=0, l=0),
+
+		# Title and Subtitle
+		title=dict(
+			text=title + "<br><sup>" +
+			"Lower is better" + "</sup>",
+			x=0,
+			y=0.97
+		),
+
+		# axes titles
+		xaxis_title="",
+		xaxis_side="top",
+		xaxis_showline=True,
+		xaxis_zeroline=True,
+		xaxis_ticks="outside",
+
+		yaxis_title=None,
+		#xaxis_range = (0, 1.1*df.max().max()),
+
+		# legend
+		showlegend=False,
+		legend=dict(
+			groupclick="toggleitem",
+			orientation='h',
+
+			# positioning
+			x=1,
+			xanchor="right",
+
+			y=1,
+			yanchor="bottom",
+
+			font=dict(
+				size=10
+			),
+			itemsizing='constant'
+		),
+		#yaxis={'categoryorder':'total descending'}
+	)
+
+	fig.add_trace(go.Bar(
+		x=df["Frequency"],
+		y=df["Required_Output"],
+		# name=df["Required_Output"],
+		orientation='h',
+		# legendgroup=layout_type,
+		# legendgrouptitle_text=layout_type,
+		text=df["Frequency"].round(1).astype(str),
+		textfont=dict(size=25, color="white"),
+		textangle=0,
+		insidetextanchor="start",
+		# marker_color=color
+	))
+
+	st.plotly_chart(
+		fig,
+		config=PLOTLY_CONFIG,
+		use_container_width=True
+	)
+
+def bar_bigram_frequency(df, top_count=10):
+	df = df.sort_values("Frequency", ascending=False).head(top_count).reset_index().sort_values("Frequency", ascending=True)
+
+	title = f"Bigram Frequency (Top {top_count})"
+
+	fig = go.Figure().update_layout(
+		margin=dict(t=0, r=0, b=0, l=0),
+
+		# Title and Subtitle
+		title=dict(
+			text=title + "<br><sup>" +
+			"Lower is better" + "</sup>",
+			x=0,
+			y=0.97
+		),
+
+		# axes titles
+		xaxis_title="",
+		xaxis_side="top",
+		xaxis_showline=True,
+		xaxis_zeroline=True,
+		xaxis_ticks="outside",
+
+		yaxis_title=None,
+		#xaxis_range = (0, 1.1*df.max().max()),
+
+		# legend
+		showlegend=False,
+		legend=dict(
+			groupclick="toggleitem",
+			orientation='h',
+
+			# positioning
+			x=1,
+			xanchor="right",
+
+			y=1,
+			yanchor="bottom",
+
+			font=dict(
+				size=10
+			),
+			itemsizing='constant'
+		),
+		#yaxis={'categoryorder':'total descending'}
+	)
+
+	fig.add_trace(go.Bar(
+		x=df["Frequency"],
+		y=df["Key_1"] + "→" + df["Key_2"],
+		# name=df["Required_Output"],
+		orientation='h',
+		# legendgroup=layout_type,
+		# legendgrouptitle_text=layout_type,
+		text=df["Frequency"].round(1).astype(str),
+		textfont=dict(size=25, color="white"),
+		textangle=0,
+		insidetextanchor="start",
+		# marker_color=color
+	))
+
+	st.plotly_chart(
+		fig,
+		config=PLOTLY_CONFIG,
+		use_container_width=True
+	)
 
 main()
