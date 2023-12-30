@@ -5,3 +5,5 @@ Scripts/Windows/.DS_Store
 .DS_Store
 *.DS_Store
 */*.DS_Store
+Dashboard/__pycache__/common.cpython-38.pyc
+*.pyc
