@@ -472,7 +472,7 @@ def calc_bigram_penalties(bigram_penalties, data_bigram, data_unigram):
 # @st.cache_data(ttl=3600)
 
 
-def analyze_file_unigrams(text_content, accuracy, cpm, spm):
+def analyze_file_unigrams(text_content, accuracy): # , cpm, spm
 	c = Counter(text_content)
 
 	input_char_count = sum(c.values())
@@ -480,9 +480,10 @@ def analyze_file_unigrams(text_content, accuracy, cpm, spm):
 	error_rate = 1 - accuracy
 
 	c += {
-		"Backspace": int(error_rate * input_char_count),
 		# words/minute * minute => words
-		"Save": int(input_char_count/cpm * spm)
+
+		"Backspace": int(error_rate * input_char_count),
+		# "Save": int(input_char_count/cpm * spm)
 	}
 
 	frequency = pd.DataFrame(

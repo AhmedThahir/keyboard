@@ -214,24 +214,24 @@ def main():
 				)
 				accuracy /= 100
 
-				cpm = st.sidebar.slider(
-					'Characters Per Minute',
-					1, 600,
-					175,
-					step=10
-				)
+				# cpm = st.sidebar.slider(
+				# 	'Characters Per Minute',
+				# 	1, 600,
+				# 	175,
+				# 	step=10
+				# )
 
-				spm = st.slider(
-					'Saves Per Minute',
-					1, 10,
-					1,
-					step=1
-				)
+				# spm = st.slider(
+				# 	'Saves Per Minute',
+				# 	1, 10,
+				# 	1,
+				# 	step=1
+				# )
 
 			text_content = get_text_content(selected_files)
 
 			frequency_unigram, input_char_count = analyze_file_unigrams(
-				text_content, accuracy, cpm, spm
+				text_content, accuracy #, cpm, spm
 			)
 
 			frequency_bigram = analyze_file_bigram(
