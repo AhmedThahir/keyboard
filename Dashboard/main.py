@@ -85,37 +85,41 @@ def main():
 			st.header("Unigram")
 
 			heatmap = calc_data_unigram_heatmap(data_unigram.reset_index())
-			heatmap_figure = go.Figure(go.Heatmap(
+			heatmap_figure_keys = go.Figure(go.Heatmap(
 				# name = layout,
 				x=heatmap["Col"],
 				y=heatmap["Row"],
 				z=heatmap["Difficulty"],
 				hoverongaps=False,
-				colorscale="OrRd",
+				# colorscale=CUSTOM_COLOR_SCALE,
+				zauto=False,
+				zmin = heatmap["Difficulty"].min(),
+				zmax = heatmap["Difficulty"].max(),
 				colorbar={"title": "Difficulty Score"},
 			))
 
-			heatmap_figure.update_layout(
+			heatmap_figure_keys.update_layout(
 				# title = "Unigram Difficulty Score",
 				height=500,
-				# plot_bgcolor=px.colors.sequential.OrRd[0]
+				plot_bgcolor=CUSTOM_COLOR_SCALE[0]
 			)
-			heatmap_figure.update_xaxes(dict(
+			heatmap_figure_keys.update_xaxes(dict(
 				ticklen=0,
 				showgrid=False,
 				tickmode='linear',
 				tick0=1,
 				dtick=1
 			))
-			heatmap_figure.update_yaxes(dict(
+			heatmap_figure_keys.update_yaxes(dict(
 				ticklen=0,
 				showgrid=False,
 				tickmode='linear',
 				tick0=1,
 				dtick=1
 			))
+			heatmap_figure_keys.update_layout(coloraxis = {'colorscale':CUSTOM_COLOR_SCALE})
 
-			st.plotly_chart(heatmap_figure, config=PLOTLY_CONFIG,
+			st.plotly_chart(heatmap_figure_keys, config=PLOTLY_CONFIG,
 							use_container_width=True)
 			st.dataframe(
 				data_unigram,
@@ -164,7 +168,7 @@ def main():
 		elif view == views[4]:
 			st.markdown(f"# {views[4]}")
 
-			t1, t2, t3 = st.tabs(["Scores", "Relative Usage", "Input Text Statistics"])
+			t1, t2, t3, t4 = st.tabs(["Scores", "Relative Usage of Keys", "Relative Usage of Rows", "Input Text Statistics"])
 
 			input_folder = "./input_files"
 			genres = os.listdir(input_folder)
@@ -185,7 +189,7 @@ def main():
 				for genre in selected_genres:
 					# get_files()
 					input_files += glob(
-						f"./input_files/{genre}/*.txt", recursive=False)
+						f"./input_files/{genre}/**/*.*", recursive=True)
 
 				if len(input_files) == 0:
 					st.stop()
@@ -298,61 +302,67 @@ def main():
 					text_file_ngram_summary,
 					use_container_width=True
 				)
-
-			heatmap = calc_unigram_heatmap(
-				mappings_unigram, frequency_unigram, input_char_count)
-
-			# total_rows = 2
-			total_cols = 2
-			heatmap_figure = make_subplots(
-				rows=(len(layouts)+1)//total_cols,
-				cols=total_cols,
-				# vertical_spacing = 0.5,
-				# horizontal_spacing = 0.15,
-				subplot_titles=[layout.replace(
-					"_", " ") for layout in layouts]
-			)
-
-			row = 1
-			col = 0
-			for layout in layouts:
-				if col == total_cols:
-					col = 1
-					row += 1
-				else:
-					col += 1
-
-				heatmap_figure.add_trace(go.Heatmap(
-					# name = layout,
-					x=heatmap["Col"],
-					y=heatmap["Row"],
-					z=heatmap[layout],
-					hoverongaps=False,
-					colorscale="OrRd",
-					colorbar={"title": "Relative Usage (%)"},
-				), row=row, col=col)
-
-			heatmap_figure.update_layout(
-				title="Relative Usage (%) of Keys in different layouts",
-				height=500,
-				plot_bgcolor=px.colors.sequential.OrRd[0]
-			)
-			heatmap_figure.update_xaxes(dict(
-				ticklen=0,
-				showgrid=False,
-				tickmode='linear',
-				tick0=1,
-				dtick=1
-			))
-			heatmap_figure.update_yaxes(dict(
-				ticklen=0,
-				showgrid=False,
-				tickmode='linear',
-				tick0=1,
-				dtick=1
-			))
-
+			
 			with t2:
+				heatmap = calc_unigram_heatmap(
+					mappings_unigram, frequency_unigram, input_char_count
+				)
+
+				# total_rows = 2
+				total_cols = 2
+				heatmap_figure_keys = make_subplots(
+					rows=(len(layouts)+1)//total_cols,
+					cols=total_cols,
+					# vertical_spacing = 0.5,
+					# horizontal_spacing = 0.15,
+					subplot_titles=[layout.replace(
+						"_", " ") for layout in layouts]
+				)
+
+				row = 1
+				col = 0
+				for layout in layouts:
+					if col == total_cols:
+						col = 1
+						row += 1
+					else:
+						col += 1
+
+					heatmap_figure_keys.add_trace(go.Heatmap(
+						# name = layout,
+						x=heatmap["Col"],
+						y=heatmap["Row"],
+						z=heatmap[layout],
+						hoverongaps=False,
+						# colorscale=CUSTOM_COLOR_SCALE,
+						zauto=False,
+						zmin = heatmap[layout].min(),
+						zmax = heatmap[layout].max(),
+						colorbar={"title": "Relative Usage (%)"},
+						coloraxis = "coloraxis"
+					), row=row, col=col)
+
+				heatmap_figure_keys.update_layout(
+					title="Relative Usage (%) of Keys in different layouts",
+					height=500,
+					plot_bgcolor=CUSTOM_COLOR_SCALE[0]
+				)
+				heatmap_figure_keys.update_xaxes(dict(
+					ticklen=0,
+					showgrid=False,
+					tickmode='linear',
+					tick0=1,
+					dtick=1
+				))
+				heatmap_figure_keys.update_yaxes(dict(
+					ticklen=0,
+					showgrid=False,
+					tickmode='linear',
+					tick0=1,
+					dtick=1
+				))
+				heatmap_figure_keys.update_layout(coloraxis = {'colorscale':CUSTOM_COLOR_SCALE})
+
 				st.markdown(r"""
 				$$
 				\Large
@@ -372,16 +382,119 @@ def main():
 				$$
 				""")
 
-				st.plotly_chart(heatmap_figure, config=PLOTLY_CONFIG,
+				st.plotly_chart(heatmap_figure_keys, config=PLOTLY_CONFIG,
 								use_container_width=True)
-
-				heatmap = heatmap.groupby("Row").sum().drop(columns="Col")
-				heatmap = np.round(heatmap/heatmap.sum()*100, 1)
-				heatmap = heatmap.sort_index(ascending=False)
-
-				st.dataframe(heatmap)
+				
+				st.dataframe(heatmap, use_container_width=True)
 
 			with t3:
+				st.markdown(r"""
+				$$
+				\Large
+				\begin{aligned}
+				\text{RU}_{\text{Layout Row } i} 
+				&= \frac{
+					\text{Frequency}_i
+				}{
+					\text{Total Frequency of all rows}
+				} \\
+				&= \frac{
+					\text{Frequency}_i
+				}{
+					\sum \limits_{j=\text{Row}} \text{Frequency}_j
+				}
+				\end{aligned}
+				$$
+				""")
+
+				heatmap_rows = heatmap.groupby("Row").sum().drop(columns="Col")
+				heatmap_rows = np.round(heatmap_rows/heatmap_rows.sum()*100, 1)
+				heatmap_rows = heatmap_rows.sort_index(ascending=False)
+
+				heatmap_rows = heatmap_rows.reset_index()
+
+				
+				row_range = np.arange(heatmap["Row"].min(), heatmap["Row"].max()+1, 1)
+				col_range = np.arange(heatmap["Col"].min(), heatmap["Col"].max()+1, 1)
+
+				my_list = []
+
+				for row in row_range:
+					for col in col_range:
+						my_list.append([row, col])
+
+				heatmap_rows_figure_df = pd.DataFrame(
+					my_list,
+					columns=["Row", "Col"]
+				)
+
+				heatmap_rows_figure_df = heatmap_rows_figure_df.merge(
+					heatmap_rows,
+					left_on = "Row",
+					right_on = "Row",
+					how="left"
+				)
+
+				# total_rows = 2
+				total_cols = 2
+				heatmap_figure_rows = make_subplots(
+					rows=(len(layouts)+1)//total_cols,
+					cols=total_cols,
+					# vertical_spacing = 0.5,
+					# horizontal_spacing = 0.15,
+					subplot_titles=[layout.replace(
+						"_", " ") for layout in layouts]
+				)
+
+				row = 1
+				col = 0
+
+				for layout in layouts:
+					if col == total_cols:
+						col = 1
+						row += 1
+					else:
+						col += 1
+
+					heatmap_figure_rows.add_trace(go.Heatmap(
+						# name = layout,
+						x = heatmap_rows_figure_df["Col"],
+						y = heatmap_rows_figure_df["Row"],
+						z = heatmap_rows_figure_df[layout],
+						hoverongaps=False,
+						zauto=False,
+						zmin = heatmap[layout].min(),
+						zmax = heatmap[layout].max(),
+						colorbar={"title": "Relative Usage (%)"},
+						coloraxis = "coloraxis"
+					), row=row, col=col)
+
+				heatmap_figure_rows.update_layout(
+					title="Relative Usage (%) of Keys in different layouts",
+					height=500,
+					plot_bgcolor=CUSTOM_COLOR_SCALE[0]
+				)
+				heatmap_figure_rows.update_xaxes(dict(
+					ticklen=0,
+					showgrid=False,
+					tickmode='linear',
+					tick0=1,
+					dtick=1
+				))
+				heatmap_figure_rows.update_yaxes(dict(
+					ticklen=0,
+					showgrid=False,
+					tickmode='linear',
+					tick0=1,
+					dtick=1
+				))
+				heatmap_figure_rows.update_layout(coloraxis = {'colorscale':CUSTOM_COLOR_SCALE})
+				st.plotly_chart(heatmap_figure_rows, config=PLOTLY_CONFIG,
+								use_container_width=True)
+				
+				st.dataframe(heatmap_rows, use_container_width=True)
+
+			with t4:
 				st.header("Input Character Count")
 				st.markdown(f"{input_char_count:,}")
 

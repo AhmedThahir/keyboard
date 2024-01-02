@@ -17,6 +17,7 @@ import os
 
 from nltk import ngrams
 
+CUSTOM_COLOR_SCALE = ["white"] + px.colors.sequential.OrRd
 def common_styles():
 	st.set_page_config(
 		page_title="Layout Analyzer",
@@ -26,7 +27,7 @@ def common_styles():
 	)
 	common_styles = """
 		<style>
-		#MainMenu,
+		/*#MainMenu,*/
 		footer
 		{visibility: hidden; !important}
 		</style>
@@ -182,16 +183,17 @@ def boxplot(df):
 			color = "grey"
 		layout_split = layout.split("_")
 		layout_type = layout_split[1]
+		name = f"<b>{layout_split[2]}</b><br />{layout_split[0]} {layout_split[1]}"
 		fig.add_trace(go.Box(
 			x=df[layout],
-			name=f"<b>{layout_split[2]}</b><br />{layout_split[0]} {layout_split[1]}",
+			name=name,
 			marker_color=color,
 			legendgroup=layout_type,
 			legendgrouptitle_text=layout_type,
-			boxpoints='suspectedoutliers',
-			text="enst"
+			boxpoints='all',
+			text=name,
+			boxmean="sd"
 		))
-
 	st.plotly_chart(
 		fig,
 		config=PLOTLY_CONFIG,
@@ -538,9 +540,9 @@ def analyze_total_ngram_difficulty(df, char_count):
 
 def aggregate(df):
 	df = df.copy()
-	df = df.agg(["mean", "std"]).round(2).T.sort_values("mean")
-	df["Aggregate Difficulty (Mean ± Std)"] = df["mean"].astype(str) + " ± " + df["std"].astype(str)
-	df = df.drop(columns=["mean", "std"])
+	df = df.agg(["median", "mean", "std", "min", "max"]).round(2).T.sort_values("median")
+	# df["Aggregate Difficulty (Mean ± Std)"] = df["mean"].astype(str) + " ± " + df["std"].astype(str)
+	# df = df.drop(columns=["mean", "std"])
 	return df
 
 
