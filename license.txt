@@ -1,0 +1,5 @@
+Non License
+
+Copyright (c) 2023 Ahmed Thahir
+
+The assets, code, or ideas from this repository are property of Ahmed Thahir (the "author"), and **CANNOT** be used, reproduced, or distributed without the author's authorization.
