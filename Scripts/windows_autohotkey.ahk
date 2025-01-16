@@ -92,7 +92,7 @@ $RAlt::
 	KeyWait, RAlt, T0.2;
 	if (NOT ErrorLevel)
 		Send {Enter}
-	Send {Blind}{RAlt up}
+	Send {Blind}{LCtrl up}{RAlt up}
 	return
 
 ^RAlt::Send ^{Enter}
@@ -216,107 +216,107 @@ $RAlt::
 +SC035::return
 
 ; RAlt
->!SC010::Send {#}
->!SC011::Send {:}
->!SC013::Send {{}
->!SC014::Send {``}
+>!SC010::Send {LCtrl up}{RAlt up}{#}
+>!SC011::Send {LCtrl up}{RAlt up}{:}
+>!SC013::Send {LCtrl up}{RAlt up}{{}
+>!SC014::Send {LCtrl up}{RAlt up}{``}
 
->!SC017::Send {}}
->!SC019::Send {"}
->!SC01A::Send {&}
->!SC01B::Send {|}
+>!SC017::Send {LCtrl up}{RAlt up}{}}
+>!SC019::Send {LCtrl up}{RAlt up}{"}
+>!SC01A::Send {LCtrl up}{RAlt up}{&}
+>!SC01B::Send {LCtrl up}{RAlt up}{|}
 
->!SC022::Send {[}
->!SC024::Send {]}
+>!SC022::Send {LCtrl up}{RAlt up}{[}
+>!SC024::Send {LCtrl up}{RAlt up}{]}
 
->!SC02c::Send {*}
->!SC02d::Send {/}
->!SC02e::Send {(}
->!SC02f::Send {=}
+>!SC02c::Send {LCtrl up}{RAlt up}{*}
+>!SC02d::Send {LCtrl up}{RAlt up}{/}
+>!SC02e::Send {LCtrl up}{RAlt up}{(}
+>!SC02f::Send {LCtrl up}{RAlt up}{=}
 
->!SC032::Send {AltDown}`;{AltUp} ; call hunt and peck; run C:\HuntAndPeck-1.6\hap.exe /hint 
->!SC033::Send {)}
->!SC034::Send {+}
->!SC035::Send {-}
+>!SC032::Send {LCtrl up}{RAlt up}{AltDown}`;{AltUp} ; call hunt and peck; run C:\HuntAndPeck-1.6\hap.exe /hint 
+>!SC033::Send {LCtrl up}{RAlt up}{)}
+>!SC034::Send {LCtrl up}{RAlt up}{+}
+>!SC035::Send {LCtrl up}{RAlt up}{-}
 
->!SC039::Send {_}
+>!SC039::Send {LCtrl up}{RAlt up}{_}
 
->!SC018::Send {Up}
->!SC025::Send {Left}
->!SC026::Send {Down}
->!SC027::Send {Right}
->!SC028::Send {Delete}
->!SC01C::Send {Esc}
+>!SC018::Send {LCtrl up}{RAlt up}{Up}
+>!SC025::Send {LCtrl up}{RAlt up}{Left}
+>!SC026::Send {LCtrl up}{RAlt up}{Down}
+>!SC027::Send {LCtrl up}{RAlt up}{Right}
+>!SC028::Send {LCtrl up}{RAlt up}{Delete}
+>!SC01C::Send {LCtrl up}{RAlt up}{Esc}
 
->!SC01F::Send {Home}	;r
->!SC021::Send {End}	;t
->!SC020::Send {WheelDown 2}
->!SC012::Send {WheelUp 2}
+>!SC01F::Send {LCtrl up}{RAlt up}{Home}	;r
+>!SC021::Send {LCtrl up}{RAlt up}{End}	;t
+>!SC020::Send {LCtrl up}{RAlt up}{WheelDown 2}
+>!SC012::Send {LCtrl up}{RAlt up}{WheelUp 2}
 	
 ; Control
->!<!SC025::Send ^{Left}
->!<!SC026::Send ^{End} ; this is better cuz i don't use it very often
->!<!SC027::Send ^{Right}
->!<!SC018::Send ^{Home} ; this is better cuz i don't use it very often
+>!<!SC025::Send {LCtrl up}{RAlt up}^{Left}
+>!<!SC026::Send {LCtrl up}{RAlt up}^{End} ; this is better cuz i don't use it very often
+>!<!SC027::Send {LCtrl up}{RAlt up}^{Right}
+>!<!SC018::Send {LCtrl up}{RAlt up}^{Home} ; this is better cuz i don't use it very often
 
 ; RAlt + LAlt
->!<!SC010::Send {1}
->!<!SC011::Send {2}
->!<!SC012::Send {3}
->!<!SC013::Send {4}
->!<!SC014::Send {5}
+>!<!SC010::Send {LCtrl up}{RAlt up}{1}
+>!<!SC011::Send {LCtrl up}{RAlt up}{2}
+>!<!SC012::Send {LCtrl up}{RAlt up}{3}
+>!<!SC013::Send {LCtrl up}{RAlt up}{4}
+>!<!SC014::Send {LCtrl up}{RAlt up}{5}
 
->!<!SC017::Send {^}
->!<!SC019::Send {~}
+>!<!SC017::Send {LCtrl up}{RAlt up}{^}
+>!<!SC019::Send {LCtrl up}{RAlt up}{~}
 
->!<!SC01E::Send {!}
->!<!SC01F::Send {@}
->!<!SC020::Send {$}
->!<!SC021::Send {0}
+>!<!SC01E::Send {LCtrl up}{RAlt up}{!}
+>!<!SC01F::Send {LCtrl up}{RAlt up}{@}
+>!<!SC020::Send {LCtrl up}{RAlt up}{$}
+>!<!SC021::Send {LCtrl up}{RAlt up}{0}
 
->!<!SC028::Send ^{Delete} ; +{Tab}
+>!<!SC028::Send {LCtrl up}{RAlt up}^{Delete} ; +{Tab}
 
->!<!SC02c::Send {6}
->!<!SC02d::Send {7}
->!<!SC02e::Send {8}
->!<!SC02f::Send {9}
+>!<!SC02c::Send {LCtrl up}{RAlt up}{6}
+>!<!SC02d::Send {LCtrl up}{RAlt up}{7}
+>!<!SC02e::Send {LCtrl up}{RAlt up}{8}
+>!<!SC02f::Send {LCtrl up}{RAlt up}{9}
 >!<!SC030::return
 >!<!SC031::return
 
->!<!SC032::Send {`%}
->!<!SC033::Send {?}
->!<!SC034::Send {<}
->!<!SC035::Send {>}
+>!<!SC032::Send {LCtrl up}{RAlt up}{`%}
+>!<!SC033::Send {LCtrl up}{RAlt up}{?}
+>!<!SC034::Send {LCtrl up}{RAlt up}{<}
+>!<!SC035::Send {LCtrl up}{RAlt up}{>}
 
 ; RAlt+LShift+bottom row fallback for 2 key rollover keyboards
->!+SC02c::Send {6}
->!+SC02d::Send {7}
->!+SC02e::Send {8}
->!+SC02f::Send {9}
+>!+SC02c::Send {LCtrl up}{RAlt up}{6}
+>!+SC02d::Send {LCtrl up}{RAlt up}{7}
+>!+SC02e::Send {LCtrl up}{RAlt up}{8}
+>!+SC02f::Send {LCtrl up}{RAlt up}{9}
 >!+SC030::return
 >!+SC031::return
 
->!+SC032::Send {`%}
->!+SC033::Send {?}
->!+SC034::Send {<}
->!+SC035::Send {>}
+>!+SC032::Send {LCtrl up}{RAlt up}{`%}
+>!+SC033::Send {LCtrl up}{RAlt up}{?}
+>!+SC034::Send {LCtrl up}{RAlt up}{<}
+>!+SC035::Send {LCtrl up}{RAlt up}{>}
 
 
 ; Alt + Shift
->!+SC025::Send +{Left}
->!+SC026::Send +{Down}
->!+SC027::Send +{Right}
->!+SC018::Send +{Up}
+>!+SC025::Send {LCtrl up}{RAlt up}+{Left}
+>!+SC026::Send {LCtrl up}{RAlt up}+{Down}
+>!+SC027::Send {LCtrl up}{RAlt up}+{Right}
+>!+SC018::Send {LCtrl up}{RAlt up}+{Up}
 
->!+SC01F::Send +{Home}	;r
->!+SC021::Send +{End}	;t
->!+SC012::Send +^{Home}
->!+SC020::Send +^{End}
+>!+SC01F::Send {LCtrl up}{RAlt up}+{Home}	;r
+>!+SC021::Send {LCtrl up}{RAlt up}+{End}	;t
+>!+SC012::Send {LCtrl up}{RAlt up}+^{Home}
+>!+SC020::Send {LCtrl up}{RAlt up}+^{End}
 
 ; Control + Shift
->!<!+SC025::Send ^+{Left}
->!<!+SC026::Send ^+{Down}
->!<!+SC027::Send ^+{Right}
->!<!+SC018::Send ^+{Up}
+>!<!+SC025::Send {LCtrl up}{RAlt up}^+{Left}
+>!<!+SC026::Send {LCtrl up}{RAlt up}^+{Down}
+>!<!+SC027::Send {LCtrl up}{RAlt up}^+{Right}
+>!<!+SC018::Send {LCtrl up}{RAlt up}^+{Up}
 
 DllCall("Sleep",UInt,17) ;I just used the precise sleep function to wait exactly 17 milliseconds
